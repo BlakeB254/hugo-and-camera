@@ -1,0 +1,19 @@
+{
+  "category": "street",
+  "title": "Street Life",
+  "description": "Hood culture, murals, neighborhoods",
+  "items": [
+    {
+      "id": "street-001",
+      "title": "Varrio Arte",
+      "description": "Chicano mural with roses and script",
+      "image": "/images/gallery/street/street-mural.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": true,
+      "tags": ["mural", "graffiti", "chicano", "art"],
+      "location": "Chicago, IL",
+      "date": "2024-08-05"
+    }
+  ]
+}

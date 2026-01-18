@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "id": "video-001",
+      "title": "Night Moves",
+      "description": "Cruising the streets of Chicago after dark",
+      "thumbnail": "/images/videos/night-cruising.jpg",
+      "youtubeId": "",
+      "duration": "4:32",
+      "featured": true,
+      "tags": ["cruising", "night", "hydraulics", "chicago"],
+      "date": "2024-08-20"
+    }
+  ]
+}

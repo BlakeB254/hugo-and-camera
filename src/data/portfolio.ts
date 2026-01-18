@@ -1,4 +1,9 @@
-// Portfolio data structure
+/**
+ * Portfolio Data - Static
+ *
+ * This module provides static portfolio data for client-side rendering.
+ * For server-side dynamic content loading, use @/lib/content.ts instead.
+ */
 
 export interface PortfolioItem {
   id: string;
@@ -27,7 +32,7 @@ export interface VideoItem {
   date?: string;
 }
 
-// Placeholder portfolio data
+// Static portfolio data
 export const portfolioItems: PortfolioItem[] = [
   {
     id: "lowrider-1",
@@ -39,7 +44,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: true,
     tags: ["impala", "hydraulics", "purple", "golden hour"],
-    location: "East LA",
+    location: "Chicago, IL",
   },
   {
     id: "bikes-1",
@@ -51,7 +56,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: true,
     tags: ["bike", "chrome", "graffiti", "custom"],
-    location: "Boyle Heights",
+    location: "Chicago, IL",
   },
   {
     id: "portrait-1",
@@ -63,7 +68,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: true,
     tags: ["portrait", "male", "lowrider"],
-    location: "South Central",
+    location: "Chicago, IL",
   },
   {
     id: "portrait-2",
@@ -75,7 +80,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: false,
     tags: ["portrait", "female", "lowrider"],
-    location: "Compton",
+    location: "Chicago, IL",
   },
   {
     id: "events-1",
@@ -87,7 +92,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: true,
     tags: ["car show", "mariachi", "community", "family"],
-    location: "Elysian Park",
+    location: "Chicago, IL",
   },
   {
     id: "street-1",
@@ -99,7 +104,7 @@ export const portfolioItems: PortfolioItem[] = [
     height: 1280,
     featured: true,
     tags: ["mural", "graffiti", "chicano", "art"],
-    location: "Lincoln Heights",
+    location: "Chicago, IL",
   },
 ];
 
@@ -108,12 +113,12 @@ export const videoItems: VideoItem[] = [
   {
     id: "video-1",
     title: "Night Moves",
-    description: "Cruising Hollywood Blvd after dark",
+    description: "Cruising the streets after dark",
     thumbnail: "/images/night-cruising.jpg",
     youtubeId: "placeholder",
     duration: "4:32",
     featured: true,
-    tags: ["cruising", "night", "hollywood", "hydraulics"],
+    tags: ["cruising", "night", "hydraulics"],
   },
 ];
 

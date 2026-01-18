@@ -1,0 +1,31 @@
+{
+  "category": "portraits",
+  "title": "Portraits",
+  "description": "Community members, families, culture",
+  "items": [
+    {
+      "id": "portrait-001",
+      "title": "Hood Portrait",
+      "description": "Portrait in front of cherry red lowrider",
+      "image": "/images/gallery/portraits/portrait-male.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": true,
+      "tags": ["portrait", "male", "lowrider"],
+      "location": "Chicago, IL",
+      "date": "2024-09-10"
+    },
+    {
+      "id": "portrait-002",
+      "title": "Elegance",
+      "description": "Portrait with burgundy lowrider",
+      "image": "/images/gallery/portraits/portrait-female.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": false,
+      "tags": ["portrait", "female", "lowrider"],
+      "location": "Chicago, IL",
+      "date": "2024-09-12"
+    }
+  ]
+}

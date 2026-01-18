@@ -1,0 +1,19 @@
+{
+  "category": "lowriders",
+  "title": "Lowriders",
+  "description": "Custom cars, shows, and cruising culture",
+  "items": [
+    {
+      "id": "lowrider-001",
+      "title": "Purple Reign",
+      "description": "Candy purple Impala hitting switches at golden hour",
+      "image": "/images/gallery/lowriders/hero-lowrider.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": true,
+      "tags": ["impala", "hydraulics", "purple", "golden hour"],
+      "location": "Chicago, IL",
+      "date": "2024-08-15"
+    }
+  ]
+}

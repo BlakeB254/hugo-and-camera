@@ -1,0 +1,19 @@
+{
+  "category": "events",
+  "title": "Events",
+  "description": "Car shows, quinceañeras, gatherings",
+  "items": [
+    {
+      "id": "event-001",
+      "title": "Sunday Funday",
+      "description": "Community car show with mariachi",
+      "image": "/images/gallery/events/events-carshow.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": true,
+      "tags": ["car show", "mariachi", "community", "family"],
+      "location": "Chicago, IL",
+      "date": "2024-06-30"
+    }
+  ]
+}

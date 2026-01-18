@@ -1,0 +1,19 @@
+{
+  "category": "bikes",
+  "title": "Bikes",
+  "description": "Custom bikes, bike clubs, and rides",
+  "items": [
+    {
+      "id": "bike-001",
+      "title": "Blue Steel",
+      "description": "Custom lowrider bike against graffiti wall",
+      "image": "/images/gallery/bikes/bikes-featured.jpg",
+      "width": 1920,
+      "height": 1280,
+      "featured": true,
+      "tags": ["bike", "chrome", "graffiti", "custom"],
+      "location": "Chicago, IL",
+      "date": "2024-07-20"
+    }
+  ]
+}
