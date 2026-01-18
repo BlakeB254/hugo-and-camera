@@ -1,26 +1,469 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/* =============================================================================
+   HUGO AND HIS CAMERA - Cultural Design System
+   Chrome & Black Chicano Aesthetic
+   ============================================================================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  /* Chrome/Metallic Colors - Primary Palette */
+  --color-chrome: var(--chrome);
+  --color-chrome-light: var(--chrome-light);
+  --color-chrome-dark: var(--chrome-dark);
+  --color-silver: var(--silver);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+
+  /* Accent Colors - Used sparingly */
+  --color-accent-red: var(--accent-red);
+  --color-accent-blue: var(--accent-blue);
+
+  /* shadcn semantic colors */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.5rem;
+
+  /* =========================================================================
+     Chrome & Black Chicano Palette
+     Inspired by classic lowrider chrome and pinstriping
+     ========================================================================= */
+
+  /* Chrome/Metallic - Primary */
+  --chrome: #A8A8A8;
+  --chrome-light: #D4D4D4;
+  --chrome-dark: #707070;
+  --silver: #C0C0C0;
+
+  /* Gold - Secondary Accent */
+  --gold: #D4AF37;
+  --gold-light: #F4CF67;
+  --gold-dark: #996515;
+
+  /* Subtle Accents - Use sparingly for variety */
+  --accent-red: #8B0000;
+  --accent-blue: #1a3a5c;
+
+  /* Base - Deep black with warm undertones */
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+
+  --card: #111111;
+  --card-foreground: #e5e5e5;
+
+  --popover: #111111;
+  --popover-foreground: #e5e5e5;
+
+  /* Primary = Chrome */
+  --primary: #A8A8A8;
+  --primary-foreground: #0a0a0a;
+
+  --secondary: #1a1a1a;
+  --secondary-foreground: #e5e5e5;
+
+  --muted: #1a1a1a;
+  --muted-foreground: #8a8a8a;
+
+  /* Accent = Gold */
+  --accent: #D4AF37;
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #8B0000;
+
+  --border: rgba(168, 168, 168, 0.15);
+  --input: rgba(168, 168, 168, 0.1);
+  --ring: #D4AF37;
+
+  /* Chart colors */
+  --chart-1: #A8A8A8;
+  --chart-2: #D4AF37;
+  --chart-3: #707070;
+  --chart-4: #8B0000;
+  --chart-5: #1a3a5c;
+
+  /* Sidebar */
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #e5e5e5;
+  --sidebar-primary: #D4AF37;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #e5e5e5;
+  --sidebar-border: rgba(168, 168, 168, 0.1);
+  --sidebar-ring: #D4AF37;
+}
+
+/* =============================================================================
+   Base Styles
+   ============================================================================= */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar - Chrome style */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--chrome-light) 0%, var(--chrome-dark) 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =============================================================================
+   Chrome & Metallic Effects
+   ============================================================================= */
+
+@layer utilities {
+  /* Chrome gradient - the signature look */
+  .chrome-gradient {
+    background: linear-gradient(
+      180deg,
+      var(--chrome-light) 0%,
+      var(--chrome) 20%,
+      var(--chrome-dark) 40%,
+      var(--chrome) 60%,
+      var(--chrome-light) 80%,
+      var(--chrome) 100%
+    );
+  }
+
+  .chrome-text {
+    background: linear-gradient(
+      180deg,
+      var(--chrome-light) 0%,
+      var(--chrome) 30%,
+      var(--chrome-dark) 50%,
+      var(--chrome) 70%,
+      var(--chrome-light) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gold gradient */
+  .gold-gradient {
+    background: linear-gradient(
+      180deg,
+      var(--gold-light) 0%,
+      var(--gold) 30%,
+      var(--gold-dark) 50%,
+      var(--gold) 70%,
+      var(--gold-light) 100%
+    );
+  }
+
+  .gold-text {
+    background: linear-gradient(
+      180deg,
+      var(--gold-light) 0%,
+      var(--gold) 40%,
+      var(--gold-dark) 60%,
+      var(--gold) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animated chrome shine */
+  .chrome-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chrome-shine::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.3) 60%,
+      transparent 80%
+    );
+    background-size: 200% 100%;
+    animation: chromeShine 3s ease-in-out infinite;
+  }
+
+  @keyframes chromeShine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Glow effects */
+  .glow-chrome {
+    box-shadow: 0 0 15px rgba(168, 168, 168, 0.4),
+                0 0 30px rgba(168, 168, 168, 0.2),
+                0 0 45px rgba(168, 168, 168, 0.1);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4),
+                0 0 30px rgba(212, 175, 55, 0.2),
+                0 0 45px rgba(212, 175, 55, 0.1);
+  }
+
+  /* Text shadows for chrome effect */
+  .text-shadow-chrome {
+    text-shadow:
+      0 1px 0 var(--chrome-light),
+      0 2px 0 var(--chrome),
+      0 3px 0 var(--chrome-dark),
+      0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Pinstripe line animation */
+  .pinstripe-draw {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease-out forwards;
+  }
+
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Subtle hover lift */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* =============================================================================
+   Pinstriping Patterns
+   ============================================================================= */
+
+@layer utilities {
+  /* Horizontal pinstripe divider */
+  .pinstripe-divider {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--gold-dark) 10%,
+      var(--gold) 20%,
+      var(--chrome) 50%,
+      var(--gold) 80%,
+      var(--gold-dark) 90%,
+      transparent 100%
+    );
+  }
+
+  /* Double pinstripe border */
+  .pinstripe-border-double {
+    position: relative;
+  }
+
+  .pinstripe-border-double::before,
+  .pinstripe-border-double::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .pinstripe-border-double::before {
+    inset: -2px;
+    border: 1px solid var(--gold);
+    border-radius: inherit;
+  }
+
+  .pinstripe-border-double::after {
+    inset: -6px;
+    border: 1px solid var(--chrome-dark);
+    border-radius: inherit;
+  }
+}
+
+/* =============================================================================
+   Component Styles
+   ============================================================================= */
+
+/* Navigation link with underline effect */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--chrome));
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Gallery card with chrome shine on hover */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.gallery-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%
+  );
+  background-size: 300% 300%;
+  background-position: 100% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.15);
+  border-color: var(--gold);
+}
+
+.gallery-card:hover::before {
+  opacity: 1;
+  animation: cardShine 0.8s ease-out;
+}
+
+@keyframes cardShine {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -100% -100%; }
+}
+
+/* Section divider with flourish */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--chrome), transparent);
+}
+
+/* Button chrome style */
+.btn-chrome {
+  background: linear-gradient(
+    180deg,
+    var(--chrome-light) 0%,
+    var(--chrome) 50%,
+    var(--chrome-dark) 100%
+  );
+  color: var(--background);
+  border: 1px solid var(--chrome-light);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-chrome:hover {
+  background: linear-gradient(
+    180deg,
+    var(--gold-light) 0%,
+    var(--gold) 50%,
+    var(--gold-dark) 100%
+  );
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Form inputs with chrome focus */
+.input-chrome {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.input-chrome:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  outline: none;
 }
