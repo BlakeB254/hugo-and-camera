@@ -15,10 +15,12 @@ interface VideoHeroBackgroundProps {
 
 export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const blurVideoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPortraitVideo, setIsPortraitVideo] = useState(true); // Assume portrait for IG reels
   const [videoSrc, setVideoSrc] = useState(desktopVideo);
   const playAttempts = useRef(0);
   const maxAttempts = 3;
@@ -35,23 +37,40 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Attempt to play video
+  // Detect video aspect ratio once loaded
+  const handleLoadedMetadata = useCallback(() => {
+    const video = videoRef.current;
+    if (video) {
+      const isPortrait = video.videoHeight > video.videoWidth;
+      setIsPortraitVideo(isPortrait);
+    }
+  }, []);
+
+  // Attempt to play both videos (main + blur background)
   const attemptPlay = useCallback(async () => {
     const video = videoRef.current;
+    const blurVideo = blurVideoRef.current;
     if (!video || isPlaying) return;
 
     playAttempts.current += 1;
 
     try {
       video.muted = true;
+      if (blurVideo) blurVideo.muted = true;
+
+      // Play both videos in sync
       await video.play();
+      if (blurVideo) {
+        blurVideo.currentTime = video.currentTime;
+        blurVideo.play().catch(() => {});
+      }
+
       setIsPlaying(true);
       setShowPlayButton(false);
     } catch (error) {
       console.log(`Play attempt ${playAttempts.current} failed`);
 
       if (playAttempts.current >= maxAttempts) {
-        // Show play button as fallback on mobile
         if (isMobile) {
           setShowPlayButton(true);
         }
@@ -64,16 +83,22 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
   // Manual play handler for play button
   const handleManualPlay = useCallback(() => {
     const video = videoRef.current;
+    const blurVideo = blurVideoRef.current;
     if (!video) return;
 
     video.muted = true;
+    if (blurVideo) blurVideo.muted = true;
+
     video.play()
       .then(() => {
+        if (blurVideo) {
+          blurVideo.currentTime = video.currentTime;
+          blurVideo.play().catch(() => {});
+        }
         setIsPlaying(true);
         setShowPlayButton(false);
       })
       .catch(() => {
-        // If still failing, video might be blocked entirely
         console.log("Manual play failed");
       });
   }, []);
@@ -81,12 +106,34 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
   // Set iOS-specific attributes
   useEffect(() => {
     const video = videoRef.current;
+    const blurVideo = blurVideoRef.current;
     if (!video) return;
 
-    video.setAttribute("webkit-playsinline", "true");
-    video.setAttribute("playsinline", "true");
-    video.setAttribute("x5-playsinline", "true");
-    video.setAttribute("x5-video-player-type", "h5");
+    const setAttrs = (el: HTMLVideoElement) => {
+      el.setAttribute("webkit-playsinline", "true");
+      el.setAttribute("playsinline", "true");
+      el.setAttribute("x5-playsinline", "true");
+      el.setAttribute("x5-video-player-type", "h5");
+    };
+
+    setAttrs(video);
+    if (blurVideo) setAttrs(blurVideo);
+  }, []);
+
+  // Sync blur video with main video
+  useEffect(() => {
+    const video = videoRef.current;
+    const blurVideo = blurVideoRef.current;
+    if (!video || !blurVideo) return;
+
+    const syncVideos = () => {
+      if (Math.abs(video.currentTime - blurVideo.currentTime) > 0.1) {
+        blurVideo.currentTime = video.currentTime;
+      }
+    };
+
+    video.addEventListener("seeked", syncVideos);
+    return () => video.removeEventListener("seeked", syncVideos);
   }, []);
 
   // Initialize video playback
@@ -107,8 +154,8 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     video.addEventListener("playing", handlePlaying);
     video.addEventListener("error", handleError);
     video.addEventListener("loadeddata", attemptPlay);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
-    // Initial attempt
     const timeout = setTimeout(attemptPlay, 100);
 
     return () => {
@@ -116,30 +163,55 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
       video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("error", handleError);
       video.removeEventListener("loadeddata", attemptPlay);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       clearTimeout(timeout);
     };
-  }, [attemptPlay, isMobile]);
+  }, [attemptPlay, isMobile, handleLoadedMetadata]);
 
   // Touch/click anywhere to play (mobile)
   useEffect(() => {
     if (isPlaying || !isMobile) return;
 
-    const handleTouch = () => {
-      attemptPlay();
-    };
+    const handleTouch = () => attemptPlay();
 
     document.addEventListener("touchstart", handleTouch, { once: true, passive: true });
     return () => document.removeEventListener("touchstart", handleTouch);
   }, [attemptPlay, isPlaying, isMobile]);
 
+  // Determine if we should show the blur background (portrait video on landscape screen)
+  const showBlurBackground = isPortraitVideo && !isMobile;
+
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video element */}
+      {/* Blurred background video for portrait videos on desktop */}
+      {showBlurBackground && (
+        <video
+          ref={blurVideoRef}
+          key={`blur-${videoSrc}`}
+          className={`absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-50 transition-opacity duration-700 ${
+            isPlaying ? "opacity-100" : "opacity-0"
+          }`}
+          src={videoSrc}
+          muted
+          playsInline
+          autoPlay
+          loop
+          preload="auto"
+        />
+      )}
+
+      {/* Main video element */}
       <video
         ref={videoRef}
-        key={videoSrc} // Force remount when source changes
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+        key={videoSrc}
+        className={`absolute transition-opacity duration-700 ${
           isPlaying ? "opacity-100" : "opacity-0"
+        } ${
+          // On mobile or landscape video: cover the full area
+          // On desktop with portrait video: contain to show full video
+          isMobile || !isPortraitVideo
+            ? "inset-0 w-full h-full object-cover"
+            : "inset-0 w-full h-full object-contain"
         }`}
         src={videoSrc}
         muted
@@ -150,13 +222,26 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
         poster="/images/hero-lowrider.jpg"
       />
 
-      {/* Fallback image */}
+      {/* Fallback image with proper sizing */}
       <div
-        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
-          isPlaying ? "opacity-0" : "opacity-100"
+        className={`absolute inset-0 transition-opacity duration-700 ${
+          isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
-        style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
-      />
+      >
+        {/* Blur background for fallback image on desktop */}
+        {!isMobile && (
+          <div
+            className="absolute inset-0 bg-cover bg-center scale-110 blur-2xl brightness-50"
+            style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
+          />
+        )}
+        <div
+          className={`absolute inset-0 ${
+            isMobile ? "bg-cover bg-center" : "bg-contain bg-center bg-no-repeat"
+          }`}
+          style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
+        />
+      </div>
 
       {/* Play button for mobile fallback */}
       {showPlayButton && !isPlaying && (
@@ -172,12 +257,20 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
         </button>
       )}
 
-      {/* Overlay gradients */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--gold)]/5 via-transparent to-[var(--chrome)]/5" />
+      {/* Overlay gradients - adjusted for better visibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
-      {/* Vignette effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
+      {/* Side gradients for desktop to blend blur edges */}
+      {showBlurBackground && (
+        <>
+          <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background/40 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background/40 to-transparent" />
+        </>
+      )}
+
+      {/* Subtle vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.4)_100%)]" />
     </div>
   );
 }
