@@ -32,13 +32,13 @@ export default function AboutPage() {
             <PinstripeBorder variant="gold" animated>
               <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
                 <Image
-                  src="/images/portrait-male.jpg"
-                  alt="Hugo"
+                  src="/images/hugo-portrait-camera.jpg"
+                  alt="Hugo with his camera"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
               </div>
             </PinstripeBorder>
           </div>
@@ -148,6 +148,34 @@ export default function AboutPage() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Gallery Exhibition */}
+        <section className="mb-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+              <Image
+                src="/images/hugo-gallery-exhibition.jpg"
+                alt="Hugo at his gallery exhibition"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">
+                <span className="gold-text">From the Streets to the Gallery</span>
+              </h2>
+              <p className="text-muted-foreground mb-4">
+                What started as documenting car shows and community events has grown into
+                gallery exhibitions showcasing the beauty and pride of Chicago&apos;s lowrider culture.
+              </p>
+              <p className="text-muted-foreground">
+                Each photograph tells a story - of family, tradition, and the artistry that goes
+                into every custom car, bike, and the people who build them.
+              </p>
+            </div>
           </div>
         </section>
 

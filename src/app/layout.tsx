@@ -77,7 +77,7 @@ export default function RootLayout({
         className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-background text-foreground`}
       >
         <Header />
-        <main className="min-h-screen pt-24">
+        <main className="min-h-screen pt-28">
           {children}
         </main>
         <Footer />

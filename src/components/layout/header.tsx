@@ -14,7 +14,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
-      <nav className="container mx-auto px-4 h-24 flex items-center justify-between">
+      <nav className="container mx-auto px-4 h-28 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <motion.div
@@ -25,9 +25,9 @@ export function Header() {
             <Image
               src="/images/logo-transparent.png"
               alt="Hugo and His Camera"
-              width={200}
-              height={100}
-              className="h-20 w-auto object-contain drop-shadow-lg"
+              width={280}
+              height={140}
+              className="h-24 md:h-28 w-auto object-contain drop-shadow-lg"
               priority
             />
           </motion.div>
