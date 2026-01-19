@@ -239,72 +239,72 @@ export function categorizeMedia(media: InstagramMedia): string {
 }
 
 /**
- * Placeholder media when Instagram is not connected
- * Using the generated placeholder images
+ * Fallback media when Instagram API is not connected
+ * Uses real gallery images from Hugo's portfolio
  */
 function getPlaceholderMedia(): InstagramMedia[] {
   const now = new Date().toISOString();
 
   return [
     {
-      id: "placeholder-1",
-      caption: "Purple Reign 💜 Candy purple Impala hitting switches at golden hour #lowrider #eastLA #hydraulics",
+      id: "fallback-1",
+      caption: "Chicago Skyline Cruising - Gold lowrider with the Chi skyline in the background #lowrider #chicago #hydraulics",
       media_type: "IMAGE",
-      media_url: "/images/hero-lowrider.jpg",
+      media_url: "/images/gallery/lowriders/chicago-skyline-gold-lowrider-cruising.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-2",
-      caption: "Blue Steel 🔵 Custom lowrider bike against the graffiti wall #lowriderbike #chrome #boyleheights",
+      id: "fallback-2",
+      caption: "Chrome Dreams - Custom lowrider bike with chrome details and flags #lowriderbike #chrome #chicago",
       media_type: "IMAGE",
-      media_url: "/images/bikes-featured.jpg",
+      media_url: "/images/gallery/bikes/boy-chrome-lowrider-bike-flags.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-3",
-      caption: "Hood Portrait 📸 Real ones know #portrait #southcentral #culture",
+      id: "fallback-3",
+      caption: "Couple Portrait - Real ones at the car show #portrait #carshow #culture",
       media_type: "IMAGE",
-      media_url: "/images/portrait-male.jpg",
+      media_url: "/images/gallery/portraits/couple-bw-car-show-portrait.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-4",
-      caption: "Sunday Funday 🎉 Community car show with mariachi #carshow #familia #elysianpark",
+      id: "fallback-4",
+      caption: "Hydraulic Hop Competition - Crowd goes wild at the night show #carshow #hydraulics #competition",
       media_type: "IMAGE",
-      media_url: "/images/events-carshow.jpg",
+      media_url: "/images/gallery/events/hydraulic-hop-competition-night-crowd.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-5",
-      caption: "Varrio Arte 🎨 Chicano mural with roses and script #mural #chicanostyle #streetart",
+      id: "fallback-5",
+      caption: "Blue Beauty - Lowrider under the neon lights #lowrider #nightlife #chrome",
       media_type: "IMAGE",
-      media_url: "/images/street-mural.jpg",
+      media_url: "/images/gallery/lowriders/blue-lowrider-neon-lights.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-6",
-      caption: "Elegance 💋 Portrait vibes #portrait #lowrider #compton",
+      id: "fallback-6",
+      caption: "Queen of the Scene - Gold lowrider portrait vibes #portrait #lowrider #model",
       media_type: "IMAGE",
-      media_url: "/images/portrait-female.jpg",
+      media_url: "/images/gallery/portraits/woman-gold-lowrider-model.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",
     },
     {
-      id: "placeholder-7",
-      caption: "Night Moves 🌃 Cruising Hollywood Blvd after dark #nightcruise #hollywood #hydraulics",
+      id: "fallback-7",
+      caption: "Night Moves - Cruising and sparking on the highway #nightcruise #sparks #hydraulics",
       media_type: "IMAGE",
-      media_url: "/images/night-cruising.jpg",
+      media_url: "/images/gallery/lowriders/lowrider-sparking-highway-action.jpg",
       permalink: "https://instagram.com/hugoandhiscamera",
       timestamp: now,
       username: "hugoandhiscamera",

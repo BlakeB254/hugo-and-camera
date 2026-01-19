@@ -1,127 +1,14 @@
 {
+  "id": "events",
   "category": "events",
-  "title": "Events & Car Shows",
-  "description": "Community events and car shows celebrating lowrider culture. From daytime gatherings to nighttime spectacles with neon lighting, these events showcase the vibrant Chicago lowrider community.",
+  "name": "Events & Car Shows",
+  "description": "Community events, car shows, and hydraulic hopping competitions",
+  "featured": true,
   "items": [
-    {
-      "id": "event-001",
-      "title": "Car Show Gathering with Lowriders",
-      "description": "Large community car show event with multiple custom lowriders displayed and crowds of enthusiasts",
-      "image": "/images/gallery/events/car-show-gathering-lowriders.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": true,
-      "tags": ["car show", "event", "community", "lowriders", "gathering"],
-      "location": "Chicago, IL",
-      "date": "2024-10-20"
-    },
-    {
-      "id": "event-002",
-      "title": "Nighttime Car Show with Neon",
-      "description": "Evening car show featuring illuminated lowriders with neon underglow and LED lighting effects",
-      "image": "/images/gallery/events/neon-car-show-night.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": true,
-      "tags": ["car show", "event", "neon", "night", "lowriders"],
-      "location": "Chicago, IL",
-      "date": "2024-09-30"
-    },
-    {
-      "id": "event-003",
-      "title": "Car Show - Lowriders Sign",
-      "description": "Car show event with 'Lowriders' signage and display of custom vehicles",
-      "image": "/images/gallery/events/lowriders-sign-car-show.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "event", "lowriders", "signage"],
-      "location": "Chicago, IL",
-      "date": "2024-09-15"
-    },
-    {
-      "id": "event-004",
-      "title": "Car Show Parking Lot",
-      "description": "Wide view of car show with multiple lowriders parked and displayed throughout lot",
-      "image": "/images/gallery/events/car-show-parking-lot.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "event", "lowriders", "parking lot"],
-      "location": "Chicago, IL",
-      "date": "2024-08-25"
-    },
-    {
-      "id": "event-005",
-      "title": "Yellow Lowrider with Cargo at Event",
-      "description": "Custom yellow lowrider with extended cargo carrier displayed at community event",
-      "image": "/images/gallery/events/yellow-lowrider-cargo-event.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["lowrider", "event", "custom build", "cargo"],
-      "location": "Chicago, IL",
-      "date": "2024-08-10"
-    },
-    {
-      "id": "event-006",
-      "title": "Blue and Gold Lowriders at Show",
-      "description": "Two stunning lowriders - blue and gold - featured at car show event",
-      "image": "/images/gallery/events/blue-gold-lowriders-show.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "lowriders", "event", "custom cars"],
-      "location": "Chicago, IL",
-      "date": "2024-07-30"
-    },
-    {
-      "id": "event-007",
-      "title": "Daytime Car Show",
-      "description": "Daytime car show with multiple custom lowriders on display with clear visibility",
-      "image": "/images/gallery/events/daytime-car-show-vehicles.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "event", "daytime", "lowriders"],
-      "location": "Chicago, IL",
-      "date": "2024-07-15"
-    },
-    {
-      "id": "event-008",
-      "title": "Car Show on Grass Field",
-      "description": "Outdoor car show event on grass field with multiple lowriders displayed",
-      "image": "/images/gallery/events/car-show-grass-field.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "event", "outdoor", "lowriders"],
-      "location": "Chicago, IL",
-      "date": "2024-07-01"
-    },
-    {
-      "id": "event-009",
-      "title": "Night Event with Yellow Lowrider",
-      "description": "Nighttime community event featuring bright yellow lowrider with LED lighting",
-      "image": "/images/gallery/events/night-event-yellow-lowrider.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["event", "night", "lowrider", "community"],
-      "location": "Chicago, IL",
-      "date": "2024-06-20"
-    },
-    {
-      "id": "event-010",
-      "title": "Lowrider Performing Vertical Stance",
-      "description": "Car show event with lowrider performing dramatic vertical stance hydraulic maneuver",
-      "image": "/images/gallery/events/lowrider-vertical-stance-show.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["car show", "event", "lowrider", "hydraulics", "stunt"],
-      "location": "Chicago, IL",
-      "date": "2024-06-10"
-    }
+    {"id": "event-001", "title": "Hydraulic Hop Competition", "description": "Night crowd watching hydraulic hop competition", "image": "/images/gallery/events/hydraulic-hop-competition-night-crowd.jpg", "featured": true},
+    {"id": "event-002", "title": "Estilo Car Club", "description": "Estilo car club group photo", "image": "/images/gallery/events/estilo-car-club-group.jpg", "featured": true},
+    {"id": "event-003", "title": "Car Club Gathering", "description": "Black and white car club gathering", "image": "/images/gallery/events/car-club-gathering-bw.jpg", "featured": false},
+    {"id": "event-004", "title": "Night Cruising Gas Station", "description": "Night cruising at gas station", "image": "/images/gallery/events/night-cruising-gas-station.jpg", "featured": false},
+    {"id": "event-005", "title": "Red Lowrider Vertical Hop", "description": "Red lowrider vertical hop with crowd", "image": "/images/gallery/events/red-lowrider-vertical-hop-crowd.jpg", "featured": false}
   ]
 }

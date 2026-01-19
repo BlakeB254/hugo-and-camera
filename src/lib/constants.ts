@@ -2,8 +2,8 @@
 
 export const siteConfig = {
   name: "Hugo and His Camera",
-  tagline: "Capturing the Soul of the Streets",
-  description: "Chicago-based photographer Hugo captures the city's vibrant lowrider culture, Latino/Latina heritage, and community life. Custom cars, lowrider bikes, portraits, car shows, and urban street photography from the Chi to the world.",
+  tagline: "Real shots from the culture",
+  description: "Chicago-based photographer Hugo captures lowrider culture, car shows, and the people who live it. Custom cars, lowrider bikes, portraits, and event photography from the Chi to the world.",
   url: "https://hugoandcamera.com",
   author: "Hugo",
   location: "Chicago, Illinois",

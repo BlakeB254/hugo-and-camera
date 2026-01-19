@@ -2,127 +2,97 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronDown, Play, MapPin } from "lucide-react";
+import { ChevronDown, Play, MapPin, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PinstripeHorizontal } from "@/components/cultural/pinstripe-border";
 import { VideoHeroBackground } from "@/components/shared/video-hero-background";
-import { siteConfig } from "@/lib/constants";
-
-// Chicago is home base - Hugo travels anywhere
-const homeBase = { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/25 border-[var(--gold)]/60 text-[var(--gold)] shadow-[0_0_20px_rgba(212,175,55,0.4)] neon-pulse" };
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
       {/* Video Background */}
       <VideoHeroBackground className="z-0" />
 
-      {/* Content - positioned lower to let video shine */}
-      <div className="relative z-10 container mx-auto px-4 pt-32 md:pt-40 pb-20 text-center">
-        {/* Location Tags */}
+      {/* Content - positioned at bottom to let video breathe */}
+      <div className="relative z-10 container mx-auto px-4 pb-24 md:pb-32">
+        {/* Main headline */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap justify-center items-center gap-3 mb-6"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mb-6"
         >
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${homeBase.className}`}
-          >
-            <MapPin className="h-4 w-4" />
-            <span className="text-sm font-medium">{homeBase.name}</span>
-            <span className="ml-1 text-xs font-bold uppercase tracking-wider opacity-80">• Home</span>
-          </motion.div>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.7 }}
-            className="text-sm text-muted-foreground"
-          >
-            — Will travel anywhere
-          </motion.span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight">
+            <span className="text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">Hugo</span>
+            <span className="gold-text drop-shadow-[0_2px_10px_rgba(212,175,55,0.5)]"> & His Camera</span>
+          </h1>
         </motion.div>
 
-        {/* Tagline */}
+        {/* Tagline - authentic voice */}
         <motion.p
-          className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+          className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-2xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <span className="gold-text font-semibold">{siteConfig.tagline}</span>
+          Real shots from the culture. Lowriders, car shows, and the people who live it.
         </motion.p>
 
-        {/* Subtitle */}
-        <motion.p
-          className="text-sm md:text-base lg:text-lg text-muted-foreground/80 mb-12 max-w-xl mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          Lowrider culture, Latino heritage, and hood life through the lens.
-          Car shows, custom bikes, portraits, and street photography wherever the culture lives.
-        </motion.p>
-
-        {/* CTA Buttons */}
+        {/* Location + CTA row */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-wrap items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <Button
-            asChild
-            size="lg"
-            className="chrome-gradient text-background hover:glow-gold px-8 font-semibold"
-          >
-            <Link href="/gallery">
-              View Gallery
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="border-gold text-gold hover:bg-gold/10 px-8"
-          >
-            <Link href="/video" className="flex items-center gap-2">
-              <Play className="h-4 w-4" />
-              Watch Videos
-            </Link>
-          </Button>
-        </motion.div>
+          {/* Location badge */}
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-[var(--gold)]/40">
+            <MapPin className="h-4 w-4 text-[var(--gold)]" />
+            <span className="text-sm font-medium text-white">Chicago</span>
+            <span className="text-xs text-white/60">• Travels Worldwide</span>
+          </div>
 
-        {/* Pinstripe Decoration */}
-        <motion.div
-          className="mt-16"
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 1, delay: 1.1 }}
-        >
-          <PinstripeHorizontal animated />
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2 text-muted-foreground/50"
-          >
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <ChevronDown className="h-5 w-5" />
-          </motion.div>
+          {/* CTA Buttons */}
+          <div className="flex items-center gap-3">
+            <Button
+              asChild
+              size="lg"
+              className="chrome-gradient text-background hover:glow-gold font-semibold"
+            >
+              <Link href="/gallery" className="flex items-center gap-2">
+                <Camera className="h-4 w-4" />
+                View Work
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+            >
+              <Link href="/video" className="flex items-center gap-2">
+                <Play className="h-4 w-4" />
+                Videos
+              </Link>
+            </Button>
+          </div>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1 text-white/40"
+        >
+          <ChevronDown className="h-5 w-5" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

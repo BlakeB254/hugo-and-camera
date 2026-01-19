@@ -124,16 +124,16 @@ export function getFeaturedVideos(): VideoItem[] {
 }
 
 /**
- * Placeholder videos when no content file exists
+ * Fallback videos when no content file exists
  */
 function getPlaceholderVideos(): VideoItem[] {
   return [
     {
       id: "video-1",
       title: "Night Moves",
-      description: "Cruising the streets after dark",
-      thumbnail: "/images/night-cruising.jpg",
-      youtubeId: "placeholder",
+      description: "Cruising the streets after dark with hydraulics hitting",
+      thumbnail: "/images/gallery/lowriders/lowrider-sparking-highway-action.jpg",
+      youtubeId: "dQw4w9WgXcQ",
       duration: "4:32",
       featured: true,
       tags: ["cruising", "night", "hydraulics"],

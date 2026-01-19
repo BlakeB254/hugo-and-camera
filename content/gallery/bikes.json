@@ -1,79 +1,10 @@
 {
+  "id": "bikes",
   "category": "bikes",
-  "title": "Lowrider Bikes",
-  "description": "Custom lowrider bicycles and motorcycles featuring intricate designs, decorative details, and vibrant colors. These bikes represent the lowrider culture adapted to two-wheeled vehicles.",
+  "name": "Lowrider Bikes",
+  "description": "Custom lowrider bicycles featuring intricate chrome designs and cultural pride",
+  "featured": true,
   "items": [
-    {
-      "id": "bike-001",
-      "title": "Green Lowrider Bike - Woman Rider",
-      "description": "Custom green lowrider bike with ornate detailing and woman posing at night with neon lighting",
-      "image": "/images/gallery/bikes/green-lowrider-bike-woman.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": true,
-      "tags": ["lowrider bike", "custom bike", "woman", "neon lights"],
-      "location": "Chicago, IL",
-      "date": "2024-11-10"
-    },
-    {
-      "id": "bike-002",
-      "title": "Man on Lowrider Bike with Flags",
-      "description": "Man posing with custom lowrider bike displaying American and Mexican flags at community event",
-      "image": "/images/gallery/bikes/man-lowrider-bike-flags.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": true,
-      "tags": ["lowrider bike", "man", "flags", "community event"],
-      "location": "Chicago, IL",
-      "date": "2024-10-25"
-    },
-    {
-      "id": "bike-003",
-      "title": "Lowrider Bikes at Car Show",
-      "description": "Multiple custom lowrider bikes on display at community car show event with crowds",
-      "image": "/images/gallery/bikes/lowrider-bikes-car-show.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["lowrider bike", "car show", "community", "multiple bikes"],
-      "location": "Chicago, IL",
-      "date": "2024-10-10"
-    },
-    {
-      "id": "bike-004",
-      "title": "Couple on Lowrider Bikes",
-      "description": "Man and woman posing together with their custom lowrider bikes",
-      "image": "/images/gallery/bikes/couple-lowrider-bikes.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["lowrider bike", "couple", "custom bike"],
-      "location": "Chicago, IL",
-      "date": "2024-09-20"
-    },
-    {
-      "id": "bike-005",
-      "title": "Woman on Custom Lowrider Bike",
-      "description": "Woman posing on ornately decorated custom lowrider bicycle",
-      "image": "/images/gallery/bikes/woman-custom-lowrider-bike.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["lowrider bike", "woman", "custom bike", "decorated"],
-      "location": "Chicago, IL",
-      "date": "2024-09-05"
-    },
-    {
-      "id": "bike-006",
-      "title": "Colorful Lowrider Bikes Fleet",
-      "description": "Overhead view of multiple colorful custom lowrider bikes at car show event",
-      "image": "/images/gallery/bikes/colorful-lowrider-bikes-fleet.jpg",
-      "width": 1080,
-      "height": 1350,
-      "featured": false,
-      "tags": ["lowrider bike", "multiple bikes", "colorful", "car show"],
-      "location": "Chicago, IL",
-      "date": "2024-08-25"
-    }
+    {"id": "bike-001", "title": "Chrome Dreams", "description": "Boy with chrome lowrider bike and flags showing cultural pride", "image": "/images/gallery/bikes/boy-chrome-lowrider-bike-flags.jpg", "featured": true}
   ]
 }
