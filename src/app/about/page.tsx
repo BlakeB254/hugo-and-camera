@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Hugo - a photographer dedicated to capturing lowrider culture, Latino heritage, and street life in Los Angeles.",
+  description: "Learn about Hugo - a Chicago-based photographer dedicated to capturing lowrider culture, Latino heritage, and street life in the Windy City and beyond.",
 };
 
 export default function AboutPage() {
@@ -51,19 +51,22 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Born and raised in the streets of Los Angeles, I grew up surrounded by the vibrant culture
-                  of lowriders, custom bikes, and the beautiful people who make up our community. My camera
-                  became my way of preserving these moments, these stories, these lives.
+                  Born and raised on the streets of Chicago, I grew up surrounded by the vibrant culture
+                  of lowriders, custom bikes, and the beautiful people who make up our community. From
+                  Pilsen to Little Village, the neighborhoods shaped who I am. My camera became my way
+                  of preserving these moments, these stories, these lives.
                 </p>
                 <p>
                   Every photo I take is a love letter to the culture that raised me. The candy paint
-                  shimmering in the golden hour. The pride in a father&apos;s eyes as he shows his son the
-                  family car. The murals that tell our history. The quinceañeras, the car shows, the
-                  Sunday cruises.
+                  shimmering in the golden hour against the Chicago skyline. The pride in a father&apos;s
+                  eyes as he shows his son the family car. The murals that tell our history. The
+                  quinceañeras, the car shows, the Sunday cruises down 26th Street.
                 </p>
                 <p>
-                  This isn&apos;t just photography to me. It&apos;s documentation. It&apos;s celebration.
-                  It&apos;s preservation of a culture that deserves to be seen and remembered.
+                  Chicago&apos;s lowrider scene is special - we built it from the ground up, honoring our
+                  roots while creating something uniquely ours. This isn&apos;t just photography to me.
+                  It&apos;s documentation. It&apos;s celebration. It&apos;s preservation of a culture
+                  that deserves to be seen and remembered.
                 </p>
               </div>
             </div>
@@ -73,16 +76,16 @@ export default function AboutPage() {
             {/* Stats/Experience */}
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-3xl font-bold text-candy-purple">10+</div>
+                <div className="text-3xl font-bold text-gold">5+</div>
                 <div className="text-sm text-muted-foreground">Years Experience</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-electric-blue">500+</div>
+                <div className="text-3xl font-bold text-chrome">100+</div>
                 <div className="text-sm text-muted-foreground">Events Covered</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-cherry-red">LA</div>
-                <div className="text-sm text-muted-foreground">Based</div>
+                <div className="text-3xl font-bold gold-text">CHI</div>
+                <div className="text-sm text-muted-foreground">Chicago Based</div>
               </div>
             </div>
 
@@ -92,7 +95,7 @@ export default function AboutPage() {
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-candy-purple/10 text-candy-purple hover:bg-candy-purple/20 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
               >
                 <Instagram className="h-5 w-5" />
                 Instagram
@@ -101,7 +104,7 @@ export default function AboutPage() {
                 href={siteConfig.social.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-cherry-red/10 text-cherry-red hover:bg-cherry-red/20 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent-red/10 text-accent-red hover:bg-accent-red/20 transition-colors"
               >
                 <Youtube className="h-5 w-5" />
                 YouTube
@@ -119,23 +122,23 @@ export default function AboutPage() {
             {[
               {
                 title: "Event Photography",
-                description: "Car shows, quinceañeras, family gatherings, and community events. Full coverage with edited photos delivered.",
-                color: "candy-purple",
+                description: "Car shows, quinceañeras, family gatherings, and community events throughout Chicago and beyond. Full coverage with edited photos delivered.",
+                color: "gold",
               },
               {
                 title: "Portrait Sessions",
-                description: "Individual, couple, or family portraits with your ride or in the neighborhood. Capturing your story.",
-                color: "electric-blue",
+                description: "Individual, couple, or family portraits with your ride or in the neighborhood. Capturing your story in the Chi.",
+                color: "chrome",
               },
               {
                 title: "Video Production",
                 description: "Documentary-style videos, event coverage, promotional content for clubs and businesses.",
-                color: "cherry-red",
+                color: "gold",
               },
             ].map((service) => (
               <div
                 key={service.title}
-                className="p-6 rounded-lg bg-card border border-border/50 hover:border-candy-purple/30 transition-colors"
+                className="p-6 rounded-lg bg-card border border-border/50 hover:border-gold/30 transition-colors"
               >
                 <h3 className={`text-lg font-bold mb-2 text-${service.color}`}>
                   {service.title}
@@ -154,8 +157,9 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold mb-4">Ready to Work Together?</h2>
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Whether it&apos;s your car, your family, or your event - let&apos;s capture it right.
+            Serving Chicago and traveling to LA, Houston, and beyond.
           </p>
-          <Button asChild size="lg" className="bg-candy-purple hover:bg-candy-purple-light">
+          <Button asChild size="lg" className="chrome-gradient text-background hover:glow-gold">
             <Link href="/contact" className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
               Get in Touch

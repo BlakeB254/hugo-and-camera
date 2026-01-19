@@ -10,9 +10,9 @@ import { siteConfig } from "@/lib/constants";
 
 // Cities Hugo works in - Chicago is home base
 const cities = [
-  { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/20 border-[var(--gold)]/50 text-[var(--gold)] shadow-[0_0_15px_var(--gold)/30]", home: true },
-  { name: "Los Angeles", abbr: "LA", className: "bg-[var(--chrome)]/15 border-[var(--chrome)]/40 text-[var(--chrome)]" },
-  { name: "Houston", abbr: "HTX", className: "bg-[var(--chrome-light)]/15 border-[var(--chrome-light)]/40 text-[var(--chrome-light)]" },
+  { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/25 border-[var(--gold)]/60 text-[var(--gold)] shadow-[0_0_20px_rgba(212,175,55,0.4)] neon-pulse", home: true },
+  { name: "Los Angeles", abbr: "LA", className: "bg-[var(--chrome)]/10 border-[var(--chrome)]/30 text-[var(--chrome-light)]" },
+  { name: "Houston", abbr: "HTX", className: "bg-[var(--chrome)]/10 border-[var(--chrome)]/30 text-[var(--chrome-light)]" },
 ];
 
 export function HeroSection() {
@@ -65,10 +65,13 @@ export function HeroSection() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${city.className}`}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${city.className} ${city.home ? 'scale-110' : ''}`}
             >
               <MapPin className="h-4 w-4" />
               <span className="text-sm font-medium">{city.name}</span>
+              {city.home && (
+                <span className="ml-1 text-xs font-bold uppercase tracking-wider opacity-80">• Home</span>
+              )}
             </motion.div>
           ))}
         </motion.div>
@@ -90,8 +93,8 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
         >
-          Lowrider culture, Latino heritage, and hood life through the lens.
-          Car shows, custom bikes, portraits, and street photography.
+          Chicago&apos;s lowrider culture, Latino heritage, and hood life through the lens.
+          Car shows, custom bikes, portraits, and street photography from the Chi to the world.
         </motion.p>
 
         {/* CTA Buttons */}
