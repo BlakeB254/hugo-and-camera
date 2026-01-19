@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { Play } from "lucide-react";
 
-// Single IG reel with stitched content - loops seamlessly
-const heroVideo = "/videos/hero-clip-4.mp4";
+// Different video sizes for different devices
+// Mobile: 5.2MB clip for reliable autoplay
+// Desktop: 55MB full reel for better quality
+const mobileVideo = "/videos/hero-clip-2.mp4";
+const desktopVideo = "/videos/hero-clip-4.mp4";
 
 interface VideoHeroBackgroundProps {
   className?: string;
@@ -13,48 +17,76 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [videoSrc, setVideoSrc] = useState(desktopVideo);
   const playAttempts = useRef(0);
-  const maxAttempts = 5;
+  const maxAttempts = 3;
 
-  // Attempt to play video with retries
+  // Detect mobile and set appropriate video source
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      setIsMobile(mobile);
+      setVideoSrc(mobile ? mobileVideo : desktopVideo);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Attempt to play video
   const attemptPlay = useCallback(async () => {
     const video = videoRef.current;
-    if (!video || isPlaying || playAttempts.current >= maxAttempts) return;
+    if (!video || isPlaying) return;
 
     playAttempts.current += 1;
 
     try {
-      // Ensure video is muted (required for autoplay on mobile)
       video.muted = true;
-
-      // Try to play
       await video.play();
       setIsPlaying(true);
-      setHasError(false);
+      setShowPlayButton(false);
     } catch (error) {
-      console.log(`Video play attempt ${playAttempts.current} failed, retrying...`);
+      console.log(`Play attempt ${playAttempts.current} failed`);
 
-      // Retry after a short delay
-      if (playAttempts.current < maxAttempts) {
-        setTimeout(attemptPlay, 500);
+      if (playAttempts.current >= maxAttempts) {
+        // Show play button as fallback on mobile
+        if (isMobile) {
+          setShowPlayButton(true);
+        }
       } else {
-        // After max attempts, show static fallback
-        setHasError(true);
+        setTimeout(attemptPlay, 300);
       }
     }
-  }, [isPlaying]);
+  }, [isPlaying, isMobile]);
 
-  // Set iOS-specific attributes that TypeScript doesn't recognize
+  // Manual play handler for play button
+  const handleManualPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.play()
+      .then(() => {
+        setIsPlaying(true);
+        setShowPlayButton(false);
+      })
+      .catch(() => {
+        // If still failing, video might be blocked entirely
+        console.log("Manual play failed");
+      });
+  }, []);
+
+  // Set iOS-specific attributes
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // These attributes help with iOS/Android inline playback
     video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("playsinline", "true");
     video.setAttribute("x5-playsinline", "true");
     video.setAttribute("x5-video-player-type", "h5");
-    video.setAttribute("x5-video-player-fullscreen", "true");
   }, []);
 
   // Initialize video playback
@@ -62,123 +94,85 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     const video = videoRef.current;
     if (!video) return;
 
-    // Event handlers
-    const handleCanPlay = () => {
-      attemptPlay();
-    };
-
+    const handleCanPlay = () => attemptPlay();
     const handlePlaying = () => {
       setIsPlaying(true);
-      setHasError(false);
+      setShowPlayButton(false);
     };
-
     const handleError = () => {
-      console.log("Video error, showing fallback");
-      setHasError(true);
+      if (isMobile) setShowPlayButton(true);
     };
 
-    const handleStalled = () => {
-      // Video stalled, try to resume
-      if (!isPlaying) {
-        attemptPlay();
-      }
-    };
-
-    // Add event listeners
-    video.addEventListener("canplay", handleCanPlay);
     video.addEventListener("canplaythrough", handleCanPlay);
     video.addEventListener("playing", handlePlaying);
     video.addEventListener("error", handleError);
-    video.addEventListener("stalled", handleStalled);
-
-    // iOS-specific: try to play on loadeddata
     video.addEventListener("loadeddata", attemptPlay);
 
-    // Initial play attempt after mount
-    const initialPlayTimeout = setTimeout(attemptPlay, 100);
+    // Initial attempt
+    const timeout = setTimeout(attemptPlay, 100);
 
     return () => {
-      video.removeEventListener("canplay", handleCanPlay);
       video.removeEventListener("canplaythrough", handleCanPlay);
       video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("error", handleError);
-      video.removeEventListener("stalled", handleStalled);
       video.removeEventListener("loadeddata", attemptPlay);
-      clearTimeout(initialPlayTimeout);
+      clearTimeout(timeout);
     };
-  }, [attemptPlay, isPlaying]);
+  }, [attemptPlay, isMobile]);
 
-  // User interaction fallback - play on first touch/click anywhere
+  // Touch/click anywhere to play (mobile)
   useEffect(() => {
-    if (isPlaying) return;
+    if (isPlaying || !isMobile) return;
 
-    const handleInteraction = () => {
+    const handleTouch = () => {
       attemptPlay();
     };
 
-    // Listen for any user interaction
-    document.addEventListener("touchstart", handleInteraction, { once: true, passive: true });
-    document.addEventListener("click", handleInteraction, { once: true });
-    document.addEventListener("scroll", handleInteraction, { once: true, passive: true });
-
-    return () => {
-      document.removeEventListener("touchstart", handleInteraction);
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("scroll", handleInteraction);
-    };
-  }, [attemptPlay, isPlaying]);
-
-  // Intersection Observer - play when visible
-  useEffect(() => {
-    const video = videoRef.current;
-    const container = containerRef.current;
-    if (!video || !container) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isPlaying) {
-            attemptPlay();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(container);
-
-    return () => observer.disconnect();
-  }, [attemptPlay, isPlaying]);
+    document.addEventListener("touchstart", handleTouch, { once: true, passive: true });
+    return () => document.removeEventListener("touchstart", handleTouch);
+  }, [attemptPlay, isPlaying, isMobile]);
 
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video element with all mobile-required attributes */}
+      {/* Video element */}
       <video
         ref={videoRef}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-          isPlaying && !hasError ? "opacity-100" : "opacity-0"
+        key={videoSrc} // Force remount when source changes
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          isPlaying ? "opacity-100" : "opacity-0"
         }`}
+        src={videoSrc}
         muted
         playsInline
         autoPlay
         loop
-        preload="metadata"
+        preload="auto"
         poster="/images/hero-lowrider.jpg"
-      >
-        {/* Multiple source formats for broader compatibility */}
-        <source src={heroVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      />
 
-      {/* Fallback image - shown while loading or on error */}
+      {/* Fallback image */}
       <div
-        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-          isPlaying && !hasError ? "opacity-0" : "opacity-100"
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+          isPlaying ? "opacity-0" : "opacity-100"
         }`}
         style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
       />
 
-      {/* Overlay gradients for text readability */}
+      {/* Play button for mobile fallback */}
+      {showPlayButton && !isPlaying && (
+        <button
+          onClick={handleManualPlay}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20
+                     w-20 h-20 rounded-full bg-black/50 backdrop-blur-sm border-2 border-white/30
+                     flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70
+                     active:scale-95"
+          aria-label="Play video"
+        >
+          <Play className="w-8 h-8 text-white ml-1" fill="white" />
+        </button>
+      )}
+
+      {/* Overlay gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90" />
       <div className="absolute inset-0 bg-gradient-to-r from-[var(--gold)]/5 via-transparent to-[var(--chrome)]/5" />
 
