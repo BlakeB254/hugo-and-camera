@@ -14,21 +14,22 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
-      <nav className="container mx-auto px-4 h-28 flex items-center justify-between">
-        {/* Logo */}
+      <nav className="container mx-auto px-4 h-32 md:h-36 flex items-center justify-between">
+        {/* Logo - larger for legibility */}
         <Link href="/" className="flex items-center gap-2 group">
           <motion.div
             className="relative"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             <Image
-              src="/images/logo-transparent.png"
+              src="/images/logo-header.png"
               alt="Hugo and His Camera"
-              width={280}
-              height={140}
-              className="h-24 md:h-28 w-auto object-contain drop-shadow-lg"
+              width={1000}
+              height={916}
+              className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto object-contain drop-shadow-lg"
               priority
+              quality={95}
             />
           </motion.div>
         </Link>

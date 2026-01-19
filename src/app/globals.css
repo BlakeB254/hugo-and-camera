@@ -147,11 +147,42 @@
 
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal overflow on mobile */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    html, body {
+      /* Prevent rubber-band scrolling on iOS */
+      overscroll-behavior: none;
+    }
+
+    /* Improve tap targets on mobile */
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Prevent text size adjustment on orientation change */
+    body {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+  }
+
+  /* Prevent pull-to-refresh on mobile when at top */
+  body {
+    overscroll-behavior-y: none;
   }
 
   /* Custom scrollbar - Chrome style */
@@ -520,4 +551,94 @@
   border-color: var(--gold);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
   outline: none;
+}
+
+/* =============================================================================
+   Mobile & Responsive Optimizations
+   ============================================================================= */
+
+/* Responsive image container */
+.img-responsive {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.img-responsive img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobile gallery grid */
+@media (max-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .gallery-card {
+    aspect-ratio: 4/5;
+  }
+}
+
+/* Tablet gallery grid */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-padding {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  .gallery-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .gallery-card:active {
+    transform: scale(0.98);
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+}
+
+/* Video background mobile optimization */
+@media (max-width: 768px) {
+  video.hero-video {
+    /* Use object-position to focus on interesting part of video */
+    object-position: center center;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .chrome-shine::before {
+    animation: none;
+  }
+
+  .neon-pulse {
+    animation: none;
+  }
 }

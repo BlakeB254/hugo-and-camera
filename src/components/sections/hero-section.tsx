@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown, Play, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PinstripeHorizontal } from "@/components/cultural/pinstripe-border";
+import { VideoHeroBackground } from "@/components/shared/video-hero-background";
 import { siteConfig } from "@/lib/constants";
 
 // Chicago is home base - Hugo travels anywhere
@@ -14,51 +14,22 @@ const homeBase = { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/25
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/hero-lowrider.jpg"
-          alt="Lowrider at golden hour"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        {/* Overlay gradient - subtle chrome glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/50 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--gold)]/10 via-transparent to-[var(--chrome)]/10" />
-      </div>
+      {/* Video Background */}
+      <VideoHeroBackground className="z-0" />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 text-center">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-8"
-        >
-          <Image
-            src="/images/logo-transparent.png"
-            alt="Hugo and His Camera"
-            width={500}
-            height={400}
-            className="mx-auto w-[280px] sm:w-[350px] md:w-[450px] lg:w-[500px] h-auto drop-shadow-2xl"
-            priority
-          />
-        </motion.div>
-
+      {/* Content - positioned lower to let video shine */}
+      <div className="relative z-10 container mx-auto px-4 pt-32 md:pt-40 pb-20 text-center">
         {/* Location Tags */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap justify-center items-center gap-3 mb-6"
         >
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: 0.8 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${homeBase.className}`}
           >
             <MapPin className="h-4 w-4" />
@@ -68,7 +39,7 @@ export function HeroSection() {
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 1 }}
+            transition={{ duration: 0.4, delay: 0.7 }}
             className="text-sm text-muted-foreground"
           >
             — Will travel anywhere
@@ -77,20 +48,20 @@ export function HeroSection() {
 
         {/* Tagline */}
         <motion.p
-          className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+          className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           <span className="gold-text font-semibold">{siteConfig.tagline}</span>
         </motion.p>
 
         {/* Subtitle */}
         <motion.p
-          className="text-sm md:text-base text-muted-foreground/80 mb-12 max-w-xl mx-auto"
+          className="text-sm md:text-base lg:text-lg text-muted-foreground/80 mb-12 max-w-xl mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
         >
           Lowrider culture, Latino heritage, and hood life through the lens.
           Car shows, custom bikes, portraits, and street photography wherever the culture lives.
@@ -101,7 +72,7 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
         >
           <Button
             asChild
@@ -130,7 +101,7 @@ export function HeroSection() {
           className="mt-16"
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 1, delay: 1.4 }}
+          transition={{ duration: 1, delay: 1.1 }}
         >
           <PinstripeHorizontal animated />
         </motion.div>
@@ -140,7 +111,7 @@ export function HeroSection() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
+          transition={{ delay: 1.5 }}
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
