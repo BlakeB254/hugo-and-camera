@@ -367,8 +367,8 @@ export function PinstripeHorizontal({
   );
 }
 
-// Decorative swirl/flourish element - Von Dutch style
-export function PinstripeSwirl({
+// Decorative flourish element - Classic pinstripe style
+export function PinstripeFlourish({
   className,
   size = 64,
   variant = "gold",
@@ -389,41 +389,35 @@ export function PinstripeSwirl({
     >
       <PinstripeGradientDefs />
 
-      {/* Main teardrop/leaf shape */}
+      {/* Left flowing curve */}
       <motion.path
-        d="M32 4
-           C48 8 56 20 56 32
-           C56 44 48 56 32 60
-           C16 56 8 44 8 32
-           C8 20 16 8 32 4 Z"
+        d="M8 32 C12 20 20 12 32 12 C20 20 16 28 16 32 C16 36 20 44 32 52 C20 52 12 44 8 32 Z"
         stroke={`url(#${gradientId})`}
         strokeWidth="2"
         fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       />
 
-      {/* Inner decorative curve */}
+      {/* Right flowing curve */}
       <motion.path
-        d="M32 12
-           C42 16 48 24 48 32
-           C48 40 42 48 32 52
-           C22 48 16 40 16 32
-           C16 24 22 16 32 12 Z"
+        d="M56 32 C52 20 44 12 32 12 C44 20 48 28 48 32 C48 36 44 44 32 52 C44 52 52 44 56 32 Z"
         stroke={`url(#${gradientId})`}
-        strokeWidth="1.5"
+        strokeWidth="2"
         fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+        transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
       />
 
-      {/* Center accent */}
-      <motion.circle
-        cx="32"
-        cy="32"
-        r="4"
+      {/* Center diamond accent */}
+      <motion.path
+        d="M32 24 L38 32 L32 40 L26 32 Z"
         stroke={`url(#${gradientId})`}
         strokeWidth="1.5"
         fill="none"
@@ -432,32 +426,35 @@ export function PinstripeSwirl({
         transition={{ duration: 0.4, delay: 0.8 }}
       />
 
-      {/* Top flourish */}
+      {/* Top decorative curl */}
       <motion.path
-        d="M32 4 C28 0 24 2 26 8"
+        d="M28 12 C30 6 34 6 36 12"
         stroke={`url(#${gradientId})`}
         strokeWidth="1.5"
         strokeLinecap="round"
         fill="none"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 0.6, delay: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
       />
 
-      {/* Bottom flourish */}
+      {/* Bottom decorative curl */}
       <motion.path
-        d="M32 60 C36 64 40 62 38 56"
+        d="M28 52 C30 58 34 58 36 52"
         stroke={`url(#${gradientId})`}
         strokeWidth="1.5"
         strokeLinecap="round"
         fill="none"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 0.6, delay: 1.1 }}
+        transition={{ duration: 0.5, delay: 1.1 }}
       />
     </svg>
   );
 }
+
+// Legacy alias for backwards compatibility
+export const PinstripeSwirl = PinstripeFlourish;
 
 // Scrollwork flourish - classic filigree pattern
 export function PinstripeScrollwork({
@@ -571,7 +568,22 @@ export function PinstripeDivider({
           {text}
         </span>
       ) : (
-        <PinstripeSwirl size={32} variant="gold" />
+        // Simple diamond accent instead of the eye-like swirl
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2 L22 12 L12 22 L2 12 Z"
+            stroke="var(--gold)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M12 6 L18 12 L12 18 L6 12 Z"
+            stroke="var(--gold)"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.5"
+          />
+        </svg>
       )}
 
       {/* Right flourish */}

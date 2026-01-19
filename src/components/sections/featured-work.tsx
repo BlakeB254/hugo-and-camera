@@ -7,7 +7,8 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { GraffitiText } from "@/components/cultural/graffiti-text";
-import { PinstripeHorizontal, PinstripeSwirl } from "@/components/cultural/pinstripe-border";
+import { PinstripeHorizontal } from "@/components/cultural/pinstripe-border";
+import { CulturalBackgroundPattern, CornerFlourish } from "@/components/cultural/cultural-icons";
 import { galleryCategories } from "@/lib/constants";
 import { getFeaturedItems } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -17,12 +18,21 @@ export function FeaturedWork() {
 
   return (
     <section className="py-24 bg-background relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-10 left-10 opacity-20">
-        <PinstripeSwirl size={128} />
+      {/* Background decoration - subtle geometric pattern */}
+      <CulturalBackgroundPattern variant="subtle" density="sparse" />
+
+      {/* Corner flourishes */}
+      <div className="absolute top-6 left-6 opacity-30">
+        <CornerFlourish position="top-left" size={64} variant="gold" />
       </div>
-      <div className="absolute bottom-10 right-10 opacity-20">
-        <PinstripeSwirl size={128} />
+      <div className="absolute top-6 right-6 opacity-30">
+        <CornerFlourish position="top-right" size={64} variant="gold" />
+      </div>
+      <div className="absolute bottom-6 left-6 opacity-30">
+        <CornerFlourish position="bottom-left" size={64} variant="gold" />
+      </div>
+      <div className="absolute bottom-6 right-6 opacity-30">
+        <CornerFlourish position="bottom-right" size={64} variant="gold" />
       </div>
 
       <div className="container mx-auto px-4">
