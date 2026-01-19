@@ -3,7 +3,7 @@
 export const siteConfig = {
   name: "Hugo and His Camera",
   tagline: "Capturing the Soul of the Streets",
-  description: "Lowrider culture, Latino/Latina heritage, and hood culture photography by Hugo. Car shows, custom bikes, portraits, and street life.",
+  description: "Chicago's lowrider culture, Latino/Latina heritage, and community photography by Hugo. Custom cars, lowrider bikes, portraits, car shows, and urban street life.",
   url: "https://hugoandcamera.com",
   author: "Hugo",
   social: {
@@ -26,42 +26,52 @@ export const galleryCategories = [
   {
     id: "lowriders",
     name: "Lowriders",
-    description: "Custom cars, shows, and cruising culture",
+    description: "Custom lowrider cars showcasing hydraulic suspensions, vibrant paint jobs, and detailed wheel work",
     href: "/gallery/lowriders",
-    image: "/images/hero-lowrider.jpg",
+    image: "/images/gallery/lowriders/blue-lowrider-neon-lights.jpg",
+    fallbackImage: "/images/hero-lowrider.jpg",
     color: "gold",
+    count: 10,
   },
   {
     id: "bikes",
-    name: "Bikes",
-    description: "Custom bikes, bike clubs, and rides",
+    name: "Lowrider Bikes",
+    description: "Custom lowrider bicycles featuring intricate designs, decorative details, and vibrant colors",
     href: "/gallery/bikes",
-    image: "/images/bikes-featured.jpg",
+    image: "/images/gallery/bikes/green-lowrider-bike-woman.jpg",
+    fallbackImage: "/images/bikes-featured.jpg",
     color: "chrome",
+    count: 6,
   },
   {
     id: "portraits",
     name: "Portraits",
-    description: "Community members, families, culture",
+    description: "Community portraits capturing the faces and personalities of Chicago's lowrider culture",
     href: "/gallery/portraits",
-    image: "/images/portrait-male.jpg",
+    image: "/images/gallery/portraits/woman-sunglasses-car-show.jpg",
+    fallbackImage: "/images/portrait-male.jpg",
     color: "chrome-light",
+    count: 15,
   },
   {
     id: "events",
-    name: "Events",
-    description: "Car shows, quinceañeras, gatherings",
+    name: "Events & Car Shows",
+    description: "Community events and car shows celebrating lowrider culture with neon-lit nighttime spectacles",
     href: "/gallery/events",
-    image: "/images/events-carshow.jpg",
+    image: "/images/gallery/events/neon-car-show-night.jpg",
+    fallbackImage: "/images/events-carshow.jpg",
     color: "gold",
+    count: 10,
   },
   {
     id: "street",
-    name: "Street Life",
-    description: "Hood culture, murals, neighborhoods",
+    name: "Street & Urban",
+    description: "Urban photography capturing Chicago's streets, architecture, and powerful cultural murals",
     href: "/gallery/street",
-    image: "/images/street-mural.jpg",
+    image: "/images/gallery/street/chicago-skyline-urban.jpg",
+    fallbackImage: "/images/street-mural.jpg",
     color: "chrome-dark",
+    count: 8,
   },
 ];
 
@@ -79,6 +89,10 @@ export const culturalColors = {
   // Subtle Accents - Use sparingly
   accentRed: "#8B0000",
   accentBlue: "#1a3a5c",
+  // Neon accents for night shots
+  neonBlue: "#00D4FF",
+  neonPink: "#FF1493",
+  neonGreen: "#39FF14",
 };
 
 // Hugo's base location
@@ -86,4 +100,12 @@ export const baseLocation = {
   city: "Chicago",
   state: "Illinois",
   abbr: "CHI",
+};
+
+// Stats for homepage
+export const portfolioStats = {
+  totalPhotos: 49,
+  categories: 5,
+  yearsExperience: 5,
+  eventsShot: 100,
 };

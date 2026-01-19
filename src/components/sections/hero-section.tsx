@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { PinstripeHorizontal } from "@/components/cultural/pinstripe-border";
 import { siteConfig } from "@/lib/constants";
 
-// Cities Hugo works in with chrome/gold styling
+// Cities Hugo works in - Chicago is home base
 const cities = [
-  { name: "Los Angeles", abbr: "LA", className: "bg-[var(--gold)]/15 border-[var(--gold)]/40 text-[var(--gold)]" },
-  { name: "Houston", abbr: "HTX", className: "bg-[var(--chrome)]/15 border-[var(--chrome)]/40 text-[var(--chrome)]" },
-  { name: "Chicago", abbr: "CHI", className: "bg-[var(--chrome-light)]/15 border-[var(--chrome-light)]/40 text-[var(--chrome-light)]" },
+  { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/20 border-[var(--gold)]/50 text-[var(--gold)] shadow-[0_0_15px_var(--gold)/30]", home: true },
+  { name: "Los Angeles", abbr: "LA", className: "bg-[var(--chrome)]/15 border-[var(--chrome)]/40 text-[var(--chrome)]" },
+  { name: "Houston", abbr: "HTX", className: "bg-[var(--chrome-light)]/15 border-[var(--chrome-light)]/40 text-[var(--chrome-light)]" },
 ];
 
 export function HeroSection() {
