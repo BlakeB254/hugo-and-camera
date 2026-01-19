@@ -15,12 +15,10 @@ interface VideoHeroBackgroundProps {
 
 export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const blurVideoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isPortraitVideo, setIsPortraitVideo] = useState(true); // Assume portrait for IG reels
   const [videoSrc, setVideoSrc] = useState(desktopVideo);
   const playAttempts = useRef(0);
   const maxAttempts = 3;
@@ -37,34 +35,16 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Detect video aspect ratio once loaded
-  const handleLoadedMetadata = useCallback(() => {
-    const video = videoRef.current;
-    if (video) {
-      const isPortrait = video.videoHeight > video.videoWidth;
-      setIsPortraitVideo(isPortrait);
-    }
-  }, []);
-
-  // Attempt to play both videos (main + blur background)
+  // Attempt to play video
   const attemptPlay = useCallback(async () => {
     const video = videoRef.current;
-    const blurVideo = blurVideoRef.current;
     if (!video || isPlaying) return;
 
     playAttempts.current += 1;
 
     try {
       video.muted = true;
-      if (blurVideo) blurVideo.muted = true;
-
-      // Play both videos in sync
       await video.play();
-      if (blurVideo) {
-        blurVideo.currentTime = video.currentTime;
-        blurVideo.play().catch(() => {});
-      }
-
       setIsPlaying(true);
       setShowPlayButton(false);
     } catch (error) {
@@ -83,18 +63,11 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
   // Manual play handler for play button
   const handleManualPlay = useCallback(() => {
     const video = videoRef.current;
-    const blurVideo = blurVideoRef.current;
     if (!video) return;
 
     video.muted = true;
-    if (blurVideo) blurVideo.muted = true;
-
     video.play()
       .then(() => {
-        if (blurVideo) {
-          blurVideo.currentTime = video.currentTime;
-          blurVideo.play().catch(() => {});
-        }
         setIsPlaying(true);
         setShowPlayButton(false);
       })
@@ -106,34 +79,12 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
   // Set iOS-specific attributes
   useEffect(() => {
     const video = videoRef.current;
-    const blurVideo = blurVideoRef.current;
     if (!video) return;
 
-    const setAttrs = (el: HTMLVideoElement) => {
-      el.setAttribute("webkit-playsinline", "true");
-      el.setAttribute("playsinline", "true");
-      el.setAttribute("x5-playsinline", "true");
-      el.setAttribute("x5-video-player-type", "h5");
-    };
-
-    setAttrs(video);
-    if (blurVideo) setAttrs(blurVideo);
-  }, []);
-
-  // Sync blur video with main video
-  useEffect(() => {
-    const video = videoRef.current;
-    const blurVideo = blurVideoRef.current;
-    if (!video || !blurVideo) return;
-
-    const syncVideos = () => {
-      if (Math.abs(video.currentTime - blurVideo.currentTime) > 0.1) {
-        blurVideo.currentTime = video.currentTime;
-      }
-    };
-
-    video.addEventListener("seeked", syncVideos);
-    return () => video.removeEventListener("seeked", syncVideos);
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("x5-playsinline", "true");
+    video.setAttribute("x5-video-player-type", "h5");
   }, []);
 
   // Initialize video playback
@@ -154,7 +105,6 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     video.addEventListener("playing", handlePlaying);
     video.addEventListener("error", handleError);
     video.addEventListener("loadeddata", attemptPlay);
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     const timeout = setTimeout(attemptPlay, 100);
 
@@ -163,10 +113,9 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
       video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("error", handleError);
       video.removeEventListener("loadeddata", attemptPlay);
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       clearTimeout(timeout);
     };
-  }, [attemptPlay, isMobile, handleLoadedMetadata]);
+  }, [attemptPlay, isMobile]);
 
   // Touch/click anywhere to play (mobile)
   useEffect(() => {
@@ -178,40 +127,14 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
     return () => document.removeEventListener("touchstart", handleTouch);
   }, [attemptPlay, isPlaying, isMobile]);
 
-  // Determine if we should show the blur background (portrait video on landscape screen)
-  const showBlurBackground = isPortraitVideo && !isMobile;
-
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Blurred background video for portrait videos on desktop */}
-      {showBlurBackground && (
-        <video
-          ref={blurVideoRef}
-          key={`blur-${videoSrc}`}
-          className={`absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-50 transition-opacity duration-700 ${
-            isPlaying ? "opacity-100" : "opacity-0"
-          }`}
-          src={videoSrc}
-          muted
-          playsInline
-          autoPlay
-          loop
-          preload="auto"
-        />
-      )}
-
-      {/* Main video element */}
+      {/* Main video element - full viewport coverage */}
       <video
         ref={videoRef}
         key={videoSrc}
-        className={`absolute transition-opacity duration-700 ${
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
           isPlaying ? "opacity-100" : "opacity-0"
-        } ${
-          // On mobile or landscape video: cover the full area
-          // On desktop with portrait video: contain to show full video
-          isMobile || !isPortraitVideo
-            ? "inset-0 w-full h-full object-cover"
-            : "inset-0 w-full h-full object-contain"
         }`}
         src={videoSrc}
         muted
@@ -222,26 +145,13 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
         poster="/images/hero-lowrider.jpg"
       />
 
-      {/* Fallback image with proper sizing */}
+      {/* Fallback image */}
       <div
-        className={`absolute inset-0 transition-opacity duration-700 ${
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
           isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
-      >
-        {/* Blur background for fallback image on desktop */}
-        {!isMobile && (
-          <div
-            className="absolute inset-0 bg-cover bg-center scale-110 blur-2xl brightness-50"
-            style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
-          />
-        )}
-        <div
-          className={`absolute inset-0 ${
-            isMobile ? "bg-cover bg-center" : "bg-contain bg-center bg-no-repeat"
-          }`}
-          style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
-        />
-      </div>
+        style={{ backgroundImage: "url('/images/hero-lowrider.jpg')" }}
+      />
 
       {/* Play button for mobile fallback */}
       {showPlayButton && !isPlaying && (
@@ -257,17 +167,9 @@ export function VideoHeroBackground({ className = "" }: VideoHeroBackgroundProps
         </button>
       )}
 
-      {/* Overlay gradients - adjusted for better visibility */}
+      {/* Overlay gradients for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-
-      {/* Side gradients for desktop to blend blur edges */}
-      {showBlurBackground && (
-        <>
-          <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background/40 to-transparent" />
-          <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background/40 to-transparent" />
-        </>
-      )}
 
       {/* Subtle vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.4)_100%)]" />
