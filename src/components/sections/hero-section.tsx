@@ -8,12 +8,8 @@ import { Button } from "@/components/ui/button";
 import { PinstripeHorizontal } from "@/components/cultural/pinstripe-border";
 import { siteConfig } from "@/lib/constants";
 
-// Cities Hugo works in - Chicago is home base
-const cities = [
-  { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/25 border-[var(--gold)]/60 text-[var(--gold)] shadow-[0_0_20px_rgba(212,175,55,0.4)] neon-pulse", home: true },
-  { name: "Los Angeles", abbr: "LA", className: "bg-[var(--chrome)]/10 border-[var(--chrome)]/30 text-[var(--chrome-light)]" },
-  { name: "Houston", abbr: "HTX", className: "bg-[var(--chrome)]/10 border-[var(--chrome)]/30 text-[var(--chrome-light)]" },
-];
+// Chicago is home base - Hugo travels anywhere
+const homeBase = { name: "Chicago", abbr: "CHI", className: "bg-[var(--gold)]/25 border-[var(--gold)]/60 text-[var(--gold)] shadow-[0_0_20px_rgba(212,175,55,0.4)] neon-pulse" };
 
 export function HeroSection() {
   return (
@@ -57,23 +53,26 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-3 mb-6"
+          className="flex flex-wrap justify-center items-center gap-3 mb-6"
         >
-          {cities.map((city, index) => (
-            <motion.div
-              key={city.abbr}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${city.className} ${city.home ? 'scale-110' : ''}`}
-            >
-              <MapPin className="h-4 w-4" />
-              <span className="text-sm font-medium">{city.name}</span>
-              {city.home && (
-                <span className="ml-1 text-xs font-bold uppercase tracking-wider opacity-80">• Home</span>
-              )}
-            </motion.div>
-          ))}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full border ${homeBase.className}`}
+          >
+            <MapPin className="h-4 w-4" />
+            <span className="text-sm font-medium">{homeBase.name}</span>
+            <span className="ml-1 text-xs font-bold uppercase tracking-wider opacity-80">• Home</span>
+          </motion.div>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1 }}
+            className="text-sm text-muted-foreground"
+          >
+            — Will travel anywhere
+          </motion.span>
         </motion.div>
 
         {/* Tagline */}
@@ -93,8 +92,8 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
         >
-          Chicago&apos;s lowrider culture, Latino heritage, and hood life through the lens.
-          Car shows, custom bikes, portraits, and street photography from the Chi to the world.
+          Lowrider culture, Latino heritage, and hood life through the lens.
+          Car shows, custom bikes, portraits, and street photography wherever the culture lives.
         </motion.p>
 
         {/* CTA Buttons */}

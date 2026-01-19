@@ -78,7 +78,7 @@ export default function ContactPage() {
                   <div>
                     <div className="text-sm text-muted-foreground">Based In</div>
                     <div className="font-medium">Chicago, IL</div>
-                    <div className="text-xs text-muted-foreground">Also serving LA &amp; Houston</div>
+                    <div className="text-xs text-muted-foreground">Will travel anywhere</div>
                   </div>
                 </div>
               </div>

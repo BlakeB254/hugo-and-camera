@@ -185,7 +185,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold mb-4">Ready to Work Together?</h2>
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Whether it&apos;s your car, your family, or your event - let&apos;s capture it right.
-            Serving Chicago and traveling to LA, Houston, and beyond.
+            Based in Chicago, but willing to travel anywhere for the right project.
           </p>
           <Button asChild size="lg" className="chrome-gradient text-background hover:glow-gold">
             <Link href="/contact" className="flex items-center gap-2">
